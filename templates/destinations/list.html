@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2 class="text-center">{{ category.name }} Destinations</h2>
+      <p class="text-center text-muted">
+        Browse our beautiful {{ category.name|lower }} wedding venues
+      </p>
+    </div>
+  </div>
+
+  {% if destinations %}
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for destination in destinations %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img
+          src="{{ destination.photo if destination.photo.startswith('http') else url_for('static', filename='images/destinations/' + destination.photo) }}"
+          class="card-img-top"
+          alt="{{ destination.name }}"
+          style="height: 200px; object-fit: cover"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ destination.name }}</h5>
+          <p class="card-text text-muted">
+            <i class="fas fa-map-marker-alt"></i> {{ destination.location }}
+          </p>
+          <p class="card-text">
+            <span class="badge bg-primary"
+              >Rs - {{ "%.2f"|format(destination.price) }}</span
+            >
+          </p>
+        </div>
+        <div class="card-footer bg-white">
+          <a
+            href="{{ url_for('destination_details', destination_id=destination.id) }}"
+            class="btn btn-outline-primary w-100"
+          >
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-info text-center">
+    <i class="fas fa-info-circle"></i> No destinations found in this category.
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

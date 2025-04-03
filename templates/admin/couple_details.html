@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Couple Details</h2>
+
+    {% if couple %}
+        <div class="card shadow-sm p-4">
+            <h3 class="text-primary">{{ couple.name }}</h3>
+            <p><strong>Email:</strong> {{ couple.email }}</p>
+            <p><strong>Wedding Date:</strong> {{ couple.wedding_date }}</p>
+
+            <div class="mt-4">
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <p>No couple data found.</p>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

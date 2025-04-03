@@ -1,0 +1,99 @@
+{% extends "admin/base.html" %} {% block title %}Manage Destinations{% endblock
+%} {% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Manage Destinations</h2>
+    <a href="{{ url_for('add_destination') }}" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Add Destination
+    </a>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary btn-sm">
+      ← Back to Dashboard
+    </a>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body">
+      {% if destinations %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Location</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for destination in destinations %}
+            <tr>
+              <td>{{ destination.id }}</td>
+              <td>
+                {% if destination.photo %}
+                <img
+                  src="{{ destination.photo if destination.photo.startswith('http') else url_for('static', filename='images/destinations/' + destination.photo) }}"
+                  class="img-thumbnail"
+                  style="max-height: 60px; max-width: 80px"
+                  alt="{{ destination.name }}"
+                />
+                {% else %}
+                <span class="text-muted">No image</span>
+                {% endif %}
+              </td>
+              <td>{{ destination.name }}</td>
+              <td>
+                <span class="badge bg-info text-dark"
+                  >{{ destination.category_name }}</span
+                >
+              </td>
+              <td>{{ destination.location }}</td>
+              <td>Rs - {{ "%.2f"|format(destination.price) }}</td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <a
+                    href="{{ url_for('destination_details', destination_id=destination.id) }}"
+                    class="btn btn-outline-primary"
+                    title="View"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <a
+                    href="{{ url_for('edit_destination', id=destination.id) }}"
+                    class="btn btn-outline-warning"
+                    title="Edit"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <form
+                    action="{{ url_for('admin_delete_destination', id=destination.id) }}"
+                    method="POST"
+                    onsubmit="return confirm('Delete this destination?');"
+                  >
+                    <button
+                      type="submit"
+                      class="btn btn-outline-danger"
+                      title="Delete"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No destinations found. Create your
+        first destination.
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

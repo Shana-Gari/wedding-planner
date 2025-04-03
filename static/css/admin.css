@@ -1,0 +1,28 @@
+/* Admin-specific styles */
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+.navbar {
+    padding: 0.75rem 1rem;
+}
+
+.alert {
+    margin-top: 1rem;
+}
+
+.form-control, .form-select {
+    margin-bottom: 1rem;
+}
+
+/* Image preview styling */
+.img-preview {
+    max-height: 200px;
+    width: auto;
+    display: block;
+    margin: 0 auto 1rem;
+}

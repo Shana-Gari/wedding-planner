@@ -1,0 +1,170 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Edit {{ destination.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Edit Destination</h4>
+                        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-light btn-sm">
+                            ← Back to Dashboard
+                          </a>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('edit_destination', id=destination.id) }}" enctype="multipart/form-data">
+                        <!-- Destination Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Destination Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{{ destination.name }}" required>
+                        </div>
+
+                        <!-- Category Selection -->
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Category *</label>
+                            <select class="form-select" id="category_id" name="category_id" required>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}" 
+                                        {% if category.id == destination.category_id %}selected{% endif %} >
+                                    {{ category.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location *</label>
+                            <input type="text" class="form-control" id="location" name="location" 
+                                   value="{{ destination.location }}" required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" 
+                                      rows="4">{{ destination.description }}</textarea>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rs - </span>
+                                <input type="number" class="form-control" id="price" name="price" 
+                                       step="0.01" min="0" value="{{ destination.price }}" required>
+                            </div>
+                        </div>
+
+                        <!-- Image Options -->
+                        <div class="mb-3">
+                            <label class="form-label">Destination Image</label>
+                            
+                            <!-- Current Image Preview -->
+                            <div class="text-center mb-3">
+                                {% if destination.photo %}
+                                    <img src="{{ destination.photo if destination.photo.startswith('http') else url_for('static', filename='images/destinations/' + destination.photo) }}" 
+                                         class="img-thumbnail mb-2" 
+                                         style="max-height: 200px;" 
+                                         id="currentImage">
+                                {% else %}
+                                    <div class="text-muted py-4 border rounded">
+                                        <i class="fas fa-image fa-3x mb-2"></i>
+                                        <p>No image set</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Image Update Options -->
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="image_action" 
+                                           id="keepImage" value="keep" checked>
+                                    <label class="form-check-label" for="keepImage">
+                                        Keep current image
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="image_action" 
+                                           id="uploadImage" value="upload">
+                                    <label class="form-check-label" for="uploadImage">
+                                        Upload new image
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="image_action" 
+                                           id="useUrl" value="url">
+                                    <label class="form-check-label" for="useUrl">
+                                        Use image URL
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Upload Field (hidden by default) -->
+                            <div class="mb-3 d-none" id="uploadField">
+                                <input type="file" class="form-control" id="image_file" name="image_file" 
+                                       accept="image/*">
+                                <div class="form-text">Max size: 5MB (JPG, PNG, GIF)</div>
+                            </div>
+
+                            <!-- URL Field (hidden by default) -->
+                            <div class="mb-3 d-none" id="urlField">
+                                <input type="url" class="form-control" id="image_url" name="image_url" 
+                                       placeholder="https://example.com/image.jpg">
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button type="reset" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Image Options -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const imageActions = document.querySelectorAll('input[name="image_action"]');
+    const uploadField = document.getElementById('uploadField');
+    const urlField = document.getElementById('urlField');
+    const imageFile = document.getElementById('image_file');
+    const imageUrl = document.getElementById('image_url');
+
+    // Handle image action changes
+    imageActions.forEach(action => {
+        action.addEventListener('change', function() {
+            // Hide all fields first
+            uploadField.classList.add('d-none');
+            urlField.classList.add('d-none');
+            
+            // Clear inputs when switching options
+            imageFile.value = '';
+            imageUrl.value = '';
+            
+            // Show relevant field
+            if (this.value === 'upload') {
+                uploadField.classList.remove('d-none');
+            } else if (this.value === 'url') {
+                urlField.classList.remove('d-none');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

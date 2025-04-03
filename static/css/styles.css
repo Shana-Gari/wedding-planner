@@ -1,0 +1,223 @@
+/* General Styles */
+body {
+  font-family: "Lora", serif;
+  background-color: #1b1b1b;
+  color: #fdf7dd;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Navigation Bar */
+nav {
+  background: #800020;
+  color: #fdf7dd;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .logo a {
+  color: #fdf7dd;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav .nav-links a {
+  color: #fdf7dd;
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero {
+  background: url("../images/hero.jpg") no-repeat center center/cover;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fdf7dd;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Buttons */
+.btn {
+  background: #800020;
+  color: #fdf7dd;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #fdf7dd;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s, color 0.3s;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #fdf7dd;
+  color: #800020;
+}
+
+.btn-danger {
+  background: #d72638;
+  border: 2px solid #fdf7dd;
+}
+
+.btn-danger:hover {
+  background: #a11924;
+  color: #fdf7dd;
+}
+
+.btn-secondary {
+  background: #333;
+  border: 2px solid #fdf7dd;
+  color: #fdf7dd;
+}
+
+.btn-secondary:hover {
+  background: #fdf7dd;
+  color: #333;
+}
+
+/* Sections */
+.featured-destinations,
+.featured-vendors {
+  padding: 2rem;
+  text-align: center;
+}
+
+.destination-grid,
+.vendor-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+/* Cards */
+.destination-card,
+.vendor-card,
+.couple-card,
+.service-card {
+  background: #800020;
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+  color: #fdf7dd;
+  border: 2px solid #fdf7dd;
+}
+
+.destination-card:hover,
+.vendor-card:hover,
+.couple-card:hover,
+.service-card:hover {
+  transform: scale(1.05);
+}
+
+.destination-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #fdf7dd;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #fdf7dd;
+  border-radius: 5px;
+  background: #333;
+  color: #fdf7dd;
+}
+
+/* Footer */
+footer {
+  background: #800020;
+  color: #fdf7dd;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* Flash Messages */
+.flash-messages {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.flash-message {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background-color: #d72638;
+  color: #fdf7dd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* Search Form */
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-form input[type="text"] {
+  padding: 5px;
+  border: 2px solid #fdf7dd;
+  border-radius: 4px;
+  background: #333;
+  color: #fdf7dd;
+}
+
+.search-form button {
+  padding: 5px 10px;
+  background-color: #800020;
+  color: #fdf7dd;
+  border: 2px solid #fdf7dd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.search-form button:hover {
+  background-color: #fdf7dd;
+  color: #800020;
+}

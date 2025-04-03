@@ -1,0 +1,150 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Edit Category - {{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Edit Category</h4>
+                        <a href="{{ url_for('manage_categories') }}" class="btn btn-sm btn-light">
+                            <i class="fas fa-arrow-left"></i> Back to Categories
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('edit_category', id=category.id) }}" enctype="multipart/form-data">
+                        <!-- Category Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Category Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{{ category.name }}" required>
+                        </div>
+
+                        <!-- Current Image Preview -->
+                        <div class="mb-3">
+                            <label class="form-label">Current Image</label>
+                            <div class="text-center">
+                                {% if category.image_path %}
+                                    <img src="{{ url_for('static', filename='images/categories/' + category.image_path) if category.image_path.startswith('categories/') else category.image_path }}" 
+                                         class="img-thumbnail mb-2" 
+                                         style="max-height: 200px;">
+                                {% else %}
+                                    <div class="text-muted py-4 border rounded">
+                                        <i class="fas fa-image fa-3x mb-2"></i>
+                                        <p>No image set</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Image Update Options -->
+                        <div class="mb-3">
+                            <label class="form-label">Update Image</label>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="image_action" 
+                                           id="keepImage" value="keep" checked>
+                                    <label class="form-check-label" for="keepImage">
+                                        Keep current image
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="image_action" 
+                                           id="uploadImage" value="upload">
+                                    <label class="form-check-label" for="uploadImage">
+                                        Upload new image
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="image_action" 
+                                           id="useUrl" value="url">
+                                    <label class="form-check-label" for="useUrl">
+                                        Use image URL
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="image_action" 
+                                           id="removeImage" value="remove">
+                                    <label class="form-check-label" for="removeImage">
+                                        Remove image
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Upload Field (hidden by default) -->
+                            <div class="mb-3 d-none" id="uploadField">
+                                <input type="file" class="form-control" id="image_file" name="image_file" 
+                                       accept="image/*">
+                                <div class="form-text">Max size: 5MB (JPG, PNG, GIF)</div>
+                            </div>
+
+                            <!-- URL Field (hidden by default) -->
+                            <div class="mb-3 d-none" id="urlField">
+                                <input type="url" class="form-control" id="image_url" name="image_url" 
+                                       placeholder="https://example.com/image.jpg">
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button type="reset" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Image Options -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const imageActions = document.querySelectorAll('input[name="image_action"]');
+    const uploadField = document.getElementById('uploadField');
+    const urlField = document.getElementById('urlField');
+    const imageFile = document.getElementById('image_file');
+    const imageUrl = document.getElementById('image_url');
+
+    // Handle image action changes
+    imageActions.forEach(action => {
+        action.addEventListener('change', function() {
+            // Hide all fields first
+            uploadField.classList.add('d-none');
+            urlField.classList.add('d-none');
+            
+            // Clear inputs when switching options
+            imageFile.value = '';
+            imageUrl.value = '';
+            
+            // Show relevant field
+            if (this.value === 'upload') {
+                uploadField.classList.remove('d-none');
+            } else if (this.value === 'url') {
+                urlField.classList.remove('d-none');
+            }
+        });
+    });
+});
+</script>
+
+<style>
+    .form-check {
+        margin-bottom: 0.5rem;
+    }
+    .img-thumbnail {
+        background-color: #f8f9fa;
+        border: 1px dashed #dee2e6;
+    }
+</style>
+{% endblock %}

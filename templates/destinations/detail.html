@@ -1,0 +1,80 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">{{ destination.name }}</h3>
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <img
+              src="{{ destination.photo if destination.photo.startswith('http') else url_for('static', filename='images/destinations/' + destination.photo) }}"
+              class="img-fluid rounded"
+              alt="{{ destination.name }}"
+              style="max-height: 400px"
+            />
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <p>
+                <strong><i class="fas fa-map-marker-alt"></i> Location:</strong>
+                {{ destination.location }}
+              </p>
+              <p>
+                <strong><i class="fas fa-tag"></i> Category:</strong> {{
+                destination.category_name }}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <strong><i class="fas fa-dollar-sign"></i> Price:</strong> Rs -
+                {{ "%.2f"|format(destination.price) }}
+              </p>
+              {% if booked %}
+              <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> You've already booked this
+                destination
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <h4>Description</h4>
+          <p class="text-muted">{{ destination.description }}</p>
+
+          {% if 'couple_email' in session and not booked %}
+          <hr />
+          <h4>Book This Destination</h4>
+          <form
+            method="POST"
+            action="{{ url_for('book_destination', destination_id=destination.id) }}"
+          >
+            <div class="mb-3">
+              <label for="wedding_date" class="form-label">Wedding Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="wedding_date"
+                name="wedding_date"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-calendar-check"></i> Book Now
+            </button>
+          </form>
+          {% elif 'couple_email' not in session %}
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> Please
+            <a href="{{ url_for('couple_login') }}">login</a> to book this
+            destination
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

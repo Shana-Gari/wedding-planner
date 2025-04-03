@@ -1,0 +1,52 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3>Couple Details</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h4>{{ couple.name }}</h4>
+                    <p><strong>Email:</strong> {{ couple.email }}</p>
+                    <p><strong>Wedding Date:</strong> {{ couple.wedding_date or 'Not specified' }}</p>
+                </div>
+            </div>
+
+            <h4>Bookings</h4>
+            {% if bookings %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Booking Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.destination_name }}</td>
+                            <td>{{ booking.booking_date }}</td>
+                            <td>{{ booking.status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info">No bookings found for this couple.</div>
+            {% endif %}
+
+            <div class="mt-3">
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

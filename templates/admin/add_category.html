@@ -1,0 +1,188 @@
+{% extends "admin/base.html" %} {% block title %}Add New Category{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary mb-3">
+        ← Back to Dashboard
+      </a>
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Add New Category</h4>
+        </div>
+        <div class="card-body">
+          <form
+            method="POST"
+            action="{{ url_for('add_category') }}"
+            enctype="multipart/form-data"
+          >
+            <!-- Category Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Category Name *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                required
+              />
+              <div class="form-text">E.g., Beach, Mountain, Garden, etc.</div>
+            </div>
+
+            <!-- Image Upload Options -->
+            <div class="mb-3">
+              <label class="form-label">Category Image *</label>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="image_option"
+                    id="uploadOption"
+                    value="upload"
+                    checked
+                  />
+                  <label class="form-check-label" for="uploadOption">
+                    Upload Image
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="image_option"
+                    id="urlOption"
+                    value="url"
+                  />
+                  <label class="form-check-label" for="urlOption">
+                    Use Image URL
+                  </label>
+                </div>
+              </div>
+
+              <!-- Upload Field -->
+              <div class="mb-3" id="uploadField">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image_file"
+                  name="image_file"
+                  accept="image/*"
+                />
+                <div class="form-text">
+                  Allowed formats: JPG, PNG, GIF (Max 5MB)
+                </div>
+              </div>
+
+              <!-- URL Field (initially hidden) -->
+              <div class="mb-3 d-none" id="urlField">
+                <input
+                  type="url"
+                  class="form-control"
+                  id="image_url"
+                  name="image_url"
+                  placeholder="https://example.com/image.jpg"
+                />
+                <div class="form-text">Enter full image URL</div>
+              </div>
+            </div>
+
+            <!-- Image Preview -->
+            <div class="mb-3 text-center">
+              <img
+                id="imagePreview"
+                src="#"
+                alt="Image Preview"
+                class="img-thumbnail d-none"
+                style="max-height: 200px; width: auto"
+              />
+              <div id="noPreview" class="text-muted">No image selected</div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+              <a
+                href="{{ url_for('manage_categories') }}"
+                class="btn btn-outline-secondary me-md-2"
+              >
+                <i class="fas fa-times"></i> Cancel
+              </a>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Save Category
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for Image Handling -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get DOM elements
+    const uploadOption = document.getElementById("uploadOption");
+    const urlOption = document.getElementById("urlOption");
+    const uploadField = document.getElementById("uploadField");
+    const urlField = document.getElementById("urlField");
+    const imageFile = document.getElementById("image_file");
+    const imageUrl = document.getElementById("image_url");
+    const imagePreview = document.getElementById("imagePreview");
+    const noPreview = document.getElementById("noPreview");
+
+    // Toggle between upload and URL fields
+    function toggleImageFields() {
+      if (uploadOption.checked) {
+        uploadField.classList.remove("d-none");
+        urlField.classList.add("d-none");
+        imageUrl.value = "";
+      } else {
+        uploadField.classList.add("d-none");
+        urlField.classList.remove("d-none");
+        imageFile.value = "";
+      }
+      updateImagePreview();
+    }
+
+    // Update image preview
+    function updateImagePreview() {
+      if (uploadOption.checked && imageFile.files && imageFile.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+          imagePreview.classList.remove("d-none");
+          noPreview.classList.add("d-none");
+        };
+        reader.readAsDataURL(imageFile.files[0]);
+      } else if (urlOption.checked && imageUrl.value) {
+        imagePreview.src = imageUrl.value;
+        imagePreview.classList.remove("d-none");
+        noPreview.classList.add("d-none");
+      } else {
+        imagePreview.classList.add("d-none");
+        noPreview.classList.remove("d-none");
+      }
+    }
+
+    // Event listeners
+    uploadOption.addEventListener("change", toggleImageFields);
+    urlOption.addEventListener("change", toggleImageFields);
+    imageFile.addEventListener("change", updateImagePreview);
+    imageUrl.addEventListener("input", updateImagePreview);
+
+    // Initialize
+    toggleImageFields();
+  });
+</script>
+
+<style>
+  .form-check {
+    margin-bottom: 0.5rem;
+  }
+  .img-thumbnail {
+    background-color: #f8f9fa;
+    border: 1px dashed #dee2e6;
+  }
+</style>
+{% endblock %}
