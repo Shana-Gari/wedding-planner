@@ -2,7 +2,7 @@
 body {
   font-family: "Lora", serif;
   background-color: #1b1b1b;
-  color: #fdf7dd;
+  color: #967f71;
   margin: 0;
   padding: 0;
   line-height: 1.6;
@@ -10,39 +10,49 @@ body {
 
 /* Navigation Bar */
 nav {
-  background: #800020;
-  color: #fdf7dd;
+  background: #e6e6e6;
+  color: #967f71;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.navbar-brand {
+  min-width: 400px !important;
+  height: 100px !important;
+}
+
 .navbar-brand img {
-  transition: transform 0.3s ease;
-  margin-right: 10px;
+  height: 100px !important;
+  width: auto !important;
+  max-width: none !important;
+  object-fit: contain !important;
 }
 
-.navbar-brand img:hover {
-  transform: scale(1.05);
+.navbar-brand div {
+  font-size: 1rem !important;
+  line-height: 1.2 !important;
 }
 
-/* For smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+  .navbar-brand {
+    min-width: 300px !important;
+  }
   .navbar-brand img {
-    height: 30px;
+    height: 80px !important;
   }
 }
 
 nav .logo a {
-  color: #fdf7dd;
+  color: #967f71;
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 nav .nav-links a {
-  color: #fdf7dd;
+  color: #967f71;
   text-decoration: none;
 }
 
@@ -53,7 +63,7 @@ nav .nav-links a {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fdf7dd;
+  color: #967f71;
   text-align: center;
 }
 
@@ -69,10 +79,10 @@ nav .nav-links a {
 
 /* Buttons */
 .btn {
-  background: #800020;
-  color: #fdf7dd;
+  background: #e6e6e6;
+  color: #967f71;
   padding: 0.6rem 1.2rem;
-  border: 2px solid #fdf7dd;
+  border: 2px solid #967f71;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -82,28 +92,28 @@ nav .nav-links a {
 }
 
 .btn:hover {
-  background: #fdf7dd;
-  color: #800020;
+  background: #967f71;
+  color: #e6e6e6;
 }
 
 .btn-danger {
   background: #d72638;
-  border: 2px solid #fdf7dd;
+  border: 2px solid #967f71;
 }
 
 .btn-danger:hover {
   background: #a11924;
-  color: #fdf7dd;
+  color: #967f71;
 }
 
 .btn-secondary {
   background: #333;
-  border: 2px solid #fdf7dd;
-  color: #fdf7dd;
+  border: 2px solid #967f71;
+  color: #967f71;
 }
 
 .btn-secondary:hover {
-  background: #fdf7dd;
+  background: #967f71;
   color: #333;
 }
 
@@ -126,14 +136,14 @@ nav .nav-links a {
 .vendor-card,
 .couple-card,
 .service-card {
-  background: #800020;
+  background: #e6e6e6;
   margin: 1rem;
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
   transition: transform 0.3s ease-in-out;
-  color: #fdf7dd;
-  border: 2px solid #fdf7dd;
+  color: #967f71;
+  border: 2px solid #967f71;
 }
 
 .destination-card:hover,
@@ -156,23 +166,23 @@ nav .nav-links a {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #fdf7dd;
+  color: #967f71;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
   padding: 0.5rem;
-  border: 2px solid #fdf7dd;
+  border: 2px solid #967f71;
   border-radius: 5px;
   background: #333;
-  color: #fdf7dd;
+  color: #967f71;
 }
 
 /* Footer */
 footer {
-  background: #800020;
-  color: #fdf7dd;
+  background: #e6e6e6;
+  color: #967f71;
   text-align: center;
   padding: 1rem;
   margin-top: 2rem;
@@ -190,7 +200,7 @@ footer {
   padding: 10px 20px;
   margin-bottom: 10px;
   background-color: #d72638;
-  color: #fdf7dd;
+  color: #967f71;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
   animation: fadeOut 5s forwards;
@@ -217,23 +227,23 @@ footer {
 
 .search-form input[type="text"] {
   padding: 5px;
-  border: 2px solid #fdf7dd;
+  border: 2px solid #967f71;
   border-radius: 4px;
   background: #333;
-  color: #fdf7dd;
+  color: #967f71;
 }
 
 .search-form button {
   padding: 5px 10px;
-  background-color: #800020;
-  color: #fdf7dd;
-  border: 2px solid #fdf7dd;
+  background-color: #e6e6e6;
+  color: #967f71;
+  border: 2px solid #967f71;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
 }
 
 .search-form button:hover {
-  background-color: #fdf7dd;
-  color: #800020;
+  background-color: #967f71;
+  color: #e6e6e6;
 }

@@ -27,13 +27,27 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}">
-          <img
-            src="{{ url_for('static', filename='images/logo.png') }}"
-            alt="Destination Weddings Logo"
-            height="40"
-            class="d-inline-block align-top"
-          />
+        <a
+          class="navbar-brand p-0 m-0"
+          href="{{ url_for('index') }}"
+          style="width: 400px"
+        >
+          <div class="d-flex align-items-center h-100">
+            <!-- Force large logo image -->
+            <img
+              src="{{ url_for('static', filename='images/logo.png') }}"
+              style="height: 100px; width: auto; min-width: 150px"
+              alt="Destination Weddings"
+            />
+
+            <!-- Text part with absolute sizing -->
+            <div class="ms-3" style="font-size: 1.5rem; line-height: 1.2">
+              <div class="fw-bold">DESTINATION WEDDINGS</div>
+              <div class="fst-italic" style="font-size: 1.1rem; color: #967f71">
+                Your perfect day, in the perfect place
+              </div>
+            </div>
+          </div>
         </a>
 
         <button
