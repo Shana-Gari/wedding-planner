@@ -1,40 +1,44 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="mb-4">Browse Wedding Destinations</h1>
-            <p class="lead">Select a category to explore beautiful wedding locations</p>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">Browse Wedding Destinations</h1>
+      <p class="lead">
+        Select a category to explore beautiful wedding locations
+      </p>
     </div>
+  </div>
 
-    <div class="row">
-        {% for category in categories %}
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="{{ url_for('static', filename='images/categories/' + category.image_path) if category.image_path.startswith('categories/') else category.image_path }}" 
-                     class="card-img-top" 
-                     alt="{{ category.name }}"
-                     style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title">{{ category.name }}</h3>
-                    <div class="d-grid gap-2">
-                        <a href="{{ url_for('category_destinations', category_id=category.id) }}" 
-                           class="btn btn-outline-primary">
-                            View Destinations
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    {% for category in categories %}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm">
+        <img
+          src="{{ url_for('static', filename='images/categories/' + category.image_path) }}"
+          class="card-img-top"
+          alt="{{ category.name }}"
+          style="height: 200px; object-fit: cover"
+        />
+        <div class="card-body">
+          <h3 class="card-title">{{ category.name }}</h3>
+          <div class="d-grid gap-2">
+            <a
+              href="{{ url_for('category_destinations', category_id=category.id) }}"
+              class="btn btn-outline-primary"
+            >
+              View Destinations
+            </a>
+          </div>
         </div>
-        {% else %}
-        <div class="col-12">
-            <div class="alert alert-info">
-                No categories found. Please check back later.
-            </div>
-        </div>
-        {% endfor %}
+      </div>
     </div>
+    {% else %}
+    <div class="col-12">
+      <div class="alert alert-info">
+        No categories found. Please check back later.
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

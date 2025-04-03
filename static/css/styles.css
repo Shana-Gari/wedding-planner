@@ -18,6 +18,22 @@ nav {
   align-items: center;
 }
 
+.navbar-brand img {
+  transition: transform 0.3s ease;
+  margin-right: 10px;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    height: 30px;
+  }
+}
+
 nav .logo a {
   color: #fdf7dd;
   text-decoration: none;

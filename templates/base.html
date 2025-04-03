@@ -27,9 +27,15 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}"
-          >Destination Weddings</a
-        >
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img
+            src="{{ url_for('static', filename='images/logo.png') }}"
+            alt="Destination Weddings Logo"
+            height="40"
+            class="d-inline-block align-top"
+          />
+        </a>
+
         <button
           class="navbar-toggler"
           type="button"
@@ -121,7 +127,7 @@
           </ul>
         </div>
 
-        <a href="javascript:history.back()" class="btn btn-secondary">
+        <a href="javascript:history.back()" class="btn btn-secondary btn-sm">
           ← Back
         </a>
       </div>
