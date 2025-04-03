@@ -1,13 +1,21 @@
 {% extends "base.html" %} {% block content %}
 
 <!-- Hero Section -->
-<section class="bg-dark text-white text-center py-5">
-  <div class="container">
+<section
+  class="hero-section"
+  style="
+    background: url('{{ url_for('static', filename='images/hero.jpg') }}') no-repeat center center/cover;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+"
+>
+  <div class="container text-center text-white">
     <h1 class="display-4">Plan Your Dream Destination Wedding</h1>
     <p class="lead">Find the perfect location for your special day.</p>
-    <a href="{{ url_for('browse_categories') }}" class="btn btn-primary btn-lg"
-      >Explore Destinations</a
-    >
+    <a href="{{ url_for('browse_categories') }}" class="btn btn-primary btn-lg">
+      Explore Destinations
+    </a>
   </div>
 </section>
 
